@@ -4,6 +4,8 @@ import WrapperView from '../components/WrapperView'
 import TextPrimary from '../components/TextPrimary'
 import CardGrey from '../components/CardGrey'
 import formatTextStyle from '../styles/formatTextStyle'
+import ProductImage from '../components/ProductImage'
+import TextSmall from '../components/TextSmall'
 
 const ListProductScreen = () => {
   const _renderText = (label) => {
@@ -17,12 +19,12 @@ const ListProductScreen = () => {
     return (
       <CardGrey>
         <View style={{ flexDirection: 'row' }}>
-          <Image source={{ uri: "https://picsum.photos/seed/picsum/200/300" }} style={{ width: 90, height: 90 }} />
+          <ProductImage />
           <View style={{ marginLeft: 8 }}>
             <TextPrimary text={product.productName} style={{ color: '#000', textAlign: 'start', marginBottom: 5 }} />
-            {_renderText(product.productDescription)}
-            {_renderText(product.createAt)}
-            {_renderText(`Dinilai oleh ${product.participant} peserta`)}
+            <TextSmall text={product.productDescription} />
+            <TextSmall text={product.createAt} />
+            <TextSmall text={`Dinilai oleh ${product.participant} peserta`} />
           </View>
         </View>
       </CardGrey>
