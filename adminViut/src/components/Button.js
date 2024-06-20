@@ -6,15 +6,20 @@ import colors from '../styles/colors'
 const Button = ({
   onPress,
   style,
-  text
+  text,
+  iconLeft
 }) => {
   return (
     <Pressable style={[{
       backgroundColor: colors.blue,
       paddingVertical: 20,
-      borderRadius: 10
+      borderRadius: 10,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
     }, style]}>
-      <TextPrimary text={"Login"} />
+      {iconLeft}
+      <TextPrimary text={text} />
     </Pressable>
   )
 }
