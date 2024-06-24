@@ -5,13 +5,13 @@ import HomeScreen from './src/screens/HomeScreen';
 import ListProductScreen from './src/screens/ListProductScreen';
 import ProductDetailScreen from './src/screens/ProductDetailScreen';
 import HistoryScreen from './src/screens/HistoryScreen';
+import AddProduct from './src/screens/AddProduct';
 
 export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="auto" />
-      {/* <ProductDetailScreen /> */}
-      <HistoryScreen />
+      <AddProduct />
     </SafeAreaView>
   );
 }
