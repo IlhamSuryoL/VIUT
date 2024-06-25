@@ -5,7 +5,7 @@ import TextPrimary from '../components/TextPrimary'
 import ProductImage from '../components/ProductImage'
 import TextSmall from '../components/TextSmall'
 
-const HistoryScreen = () => {
+const HistoryScreen = ({ navigation }) => {
   const _renderHistoryItem = (product) => {
     return (
       <View style={{ borderWidth: 1, borderColor: 'grey', borderRadius: 10, paddingHorizontal: 20, paddingVertical: 10 }}>

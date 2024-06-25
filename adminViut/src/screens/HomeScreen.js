@@ -7,19 +7,24 @@ import { AntDesign, Octicons, Ionicons } from '@expo/vector-icons';
 
 const buttonStyle = { justifyContent: 'flex-start' }
 const iconStyle = { marginHorizontal: 15 }
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <WrapperView>
       <TextPrimary style={{ color: '#000', marginBottom: 60 }} text={"Selamat Datang di Dashboard Admin"} />
       <Button text={"Tambah Produk"}
         style={buttonStyle}
-        iconLeft={<AntDesign name="pluscircleo" size={50} color="#fff" style={iconStyle} />}
+        iconLeft={<AntDesign name="pluscircleo" size={50} color="#fff" style={iconStyle}
+        />}
+        onPress={() => navigation.navigate("AddProduct")}
       />
       <Button text={"Lihat Produk"} style={[{ marginVertical: 30 }, buttonStyle]}
-        iconLeft={<Ionicons name="eye-outline" size={50} color="#fff" style={iconStyle} />} />
+        iconLeft={<Ionicons name="eye-outline" size={50} color="#fff" style={iconStyle} />}
+        onPress={() => navigation.navigate("ListProductScreen")}
+      />
       <Button text={"Riwayat"}
         style={buttonStyle}
         iconLeft={<Octicons name="history" size={50} color="#fff" style={iconStyle} />}
+        onPress={() => navigation.navigate("HistoryScreen")}
       />
     </WrapperView>
   )

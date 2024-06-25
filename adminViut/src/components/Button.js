@@ -17,7 +17,7 @@ const Button = ({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-    }, style]}>
+    }, style]} onPress={onPress}>
       {iconLeft}
       <TextPrimary text={text} />
     </Pressable>
