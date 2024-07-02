@@ -7,12 +7,13 @@ import StartSurveyScreen from './src/screens/StartSurveyScreen';
 import ViatQuestionScreen from './src/screens/ViatQuestionScreen';
 import QuestionSurveyDoneScreen from './src/screens/QuestionSurveyDoneScreen';
 import NPSSurveyScreen from './src/screens/NPSSurveyScreen';
+import NPSQuestionScreen from './src/screens/NPSQuestionScreen';
 
 export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="auto" />
-      <ViatQuestionScreen />
+      <NPSQuestionScreen />
     </SafeAreaView>
   );
 }
