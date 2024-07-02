@@ -2,31 +2,25 @@ import { View, Text, FlatList } from 'react-native'
 import React from 'react'
 import RadioButton from './RadioButton'
 import TextPrimary from './TextPrimary'
+import TextSmall from './TextSmall'
 
-const ChoosePoint = () => {
+const ChoosePoint = ({ hideStartText, hideEndText, startIndex = 1, selectedIndex }) => {
   return (
-    <View style={{
-      flexDirection: "row",
-      flexWrap: "wrap"
-    }}>
-      {[1, 2, 3, 1, 1, 1, 1, 1, 1,].map((item, index) => <View>
-        <RadioButton size={55} />
-        <TextPrimary text={index + 1} style={{ marginTop: 8 }} />
+    <View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
+        {!hideEndText && <TextSmall text="Tidak setuju" />}
+        {!hideStartText && <TextSmall text="Setuju" />}
       </View>
-      )}
-      <View style={{ backgroundColor: 'red' }}>
-        <FlatList
-          data={[1, 2, 3, 1, 1, 1, 1, 1, 1,]}
-          horizontal
-
-          // style={{ flexWrap: 'wrap', }}
-          // contentContainerStyle={{ alignItems: 'flex-start' }}
-          ItemSeparatorComponent={<View style={{ width: 11 }} />}
-          renderItem={({ index }) => <View>
-            <RadioButton size={55} />
-            <TextPrimary text={index + 1} style={{ marginTop: 8 }} />
-          </View>}
-        />
+      <View style={{
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: 'space-between'
+      }}>
+        {Array.from({ length: 5 }).map((item, index) => <View style={{ marginBottom: 6, marginHorizontal: 5 }}>
+          <RadioButton size={55} active={selectedIndex == index} />
+          <TextPrimary text={index + startIndex} style={{ marginTop: 8 }} />
+        </View>
+        )}
       </View>
     </View>
   )
