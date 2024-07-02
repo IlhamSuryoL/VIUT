@@ -7,7 +7,8 @@ const Button = ({
   onPress,
   style,
   text,
-  iconLeft
+  iconLeft,
+  textStyle
 }) => {
   return (
     <Pressable style={[{
@@ -19,7 +20,7 @@ const Button = ({
       alignItems: 'center',
     }, style]} onPress={onPress}>
       {iconLeft}
-      <TextPrimary text={text} />
+      <TextPrimary text={text} style={textStyle} />
     </Pressable>
   )
 }
