@@ -4,11 +4,11 @@ import ViewBlack from '../components/ViewBlack'
 import SurveyDone from '../components/SurveyDone'
 import Button from '../components/Button'
 
-const QuestionSurveyDoneScreen = () => {
+const QuestionSurveyDoneScreen = ({ navigation }) => {
   return (
     <ViewBlack>
       <SurveyDone />
-      <Button text={"Survey NPS"} style={{ backgroundColor: '#25AE74', marginTop: 60 }} />
+      <Button text={"Survey NPS"} style={{ backgroundColor: '#25AE74', marginTop: 60 }} onPress={() => navigation.navigate("NPSQuestionScreen")} />
     </ViewBlack>
   )
 }

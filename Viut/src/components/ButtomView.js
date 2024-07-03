@@ -4,12 +4,12 @@ import BackButton from './BackButton'
 import HomeButton from './HomeButton'
 import NextButton from './NextButton'
 
-const ButtomView = () => {
+const ButtomView = ({ navigation, nextScreen }) => {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 }}>
-      <BackButton />
-      <HomeButton />
-      <NextButton />
+      <BackButton onPress={() => navigation.goBack()} />
+      <HomeButton onPress={() => navigation.navigate("HomeScreen")} />
+      <NextButton onPress={() => navigation.navigate(nextScreen)} />
     </View>
   )
 }

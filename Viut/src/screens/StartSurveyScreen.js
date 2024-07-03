@@ -8,7 +8,7 @@ import HomeButton from '../components/HomeButton'
 import NextButton from '../components/NextButton'
 import ButtomView from '../components/ButtomView'
 
-const StartSurveyScreen = () => {
+const StartSurveyScreen = ({ navigation }) => {
   return (
     <ViewBlack>
       <View style={{ justifyContent: 'space-around', flex: 1 }}>
@@ -22,7 +22,7 @@ Nilai 1 tidak setuju dan nilai 5 setuju Tekan tombol mulai untuk mengisi penilai
           style={{ textAlign: 'center' }}
         />
       </View>
-      <ButtomView />
+      <ButtomView navigation={navigation} nextScreen="ViatQuestionScreen" />
     </ViewBlack>
   )
 }

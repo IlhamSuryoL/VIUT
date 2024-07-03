@@ -28,7 +28,7 @@ const RegisterScreen = ({ navigation }) => {
         containerStyle={{ marginTop: 20 }}
       />
       <Button text="Daftar" style={{ width: 239, alignSelf: 'center', marginVertical: 40 }} onPress={() => navigation.navigate('HomeScreen')} />
-      <ButtonAuthLink text="Sudah memiliki akun?" cta="Login" />
+      <ButtonAuthLink text="Sudah memiliki akun?" cta="Login" onPress={() => navigation.navigate("LoginScreen")} />
     </View>
   )
 }

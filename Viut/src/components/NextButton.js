@@ -1,13 +1,13 @@
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import React from 'react'
 import Styles from '../styles/Styles'
 import { AntDesign } from '@expo/vector-icons';
 
-const NextButton = () => {
+const NextButton = ({ onPress }) => {
   return (
-    <View style={[Styles.bottomButtonStyle, { backgroundColor: '#25AE74' }]}>
+    <Pressable style={[Styles.bottomButtonStyle, { backgroundColor: '#25AE74' }]} onPress={onPress}>
       <AntDesign name="arrowright" size={80} color="white" />
-    </View>
+    </Pressable>
   )
 }
 
