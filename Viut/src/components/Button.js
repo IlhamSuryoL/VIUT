@@ -8,7 +8,10 @@ const Button = ({
   style,
   text,
   iconLeft,
-  textStyle
+  textStyle,
+  accessibilityLabel,
+  accessibilityHint,
+  accessibilityRole
 }) => {
   return (
     <Pressable style={[{
@@ -18,7 +21,11 @@ const Button = ({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-    }, style]} onPress={onPress}>
+    }, style]} onPress={onPress}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityHint={accessibilityHint}
+      accessibilityRole={accessibilityRole}
+    >
       {iconLeft}
       <TextPrimary text={text} style={textStyle} />
     </Pressable>

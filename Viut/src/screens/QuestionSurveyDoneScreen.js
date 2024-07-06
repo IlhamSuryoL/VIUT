@@ -6,9 +6,9 @@ import Button from '../components/Button'
 
 const QuestionSurveyDoneScreen = ({ navigation }) => {
   return (
-    <ViewBlack>
-      <SurveyDone />
-      <Button text={"Survey NPS"} style={{ backgroundColor: '#25AE74', marginTop: 60 }} onPress={() => navigation.navigate("NPSQuestionScreen")} />
+    <ViewBlack accessible>
+      <SurveyDone labelTop={"Anda telah menyelesaikan Survey VIAT-Q ini! Berikut hasil penilaiannya"} labelBottom={"Silahkan melanjutkan penilaian untuk Survey NPS"} />
+      <Button text={"Survey NPS"} style={{ backgroundColor: '#25AE74', marginTop: 60 }} onPress={() => navigation.navigate("NPSQuestionScreen")} accessibilityRole={"button"} accessibilityHint={"klik untuk melanjutkan survey nps"} />
     </ViewBlack>
   )
 }

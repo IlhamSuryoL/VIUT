@@ -19,22 +19,22 @@ const HomeScreen = ({ navigation }) => {
       }}>
       <RadioButton active={index === selectedProductIndex} />
       <View style={{ flex: 1, marginLeft: 19 }}>
-        <TextPrimary text={"Anda sudah memilih produk,Terdapat skala nilai 1 sampai 5"} style={{ textAlign: 'flex-start', marginBottom: 5 }} numberOfLines={1} ellipsizeMode="tail" />
-        <TextSmall text="Anda sudah memilih produk,
-Terdapat skala nilai 1 sampai 5
-Nilai 1 tidak setuju dan nilai 5 setuju Tekan tombol mulai untuk mengisi penilaian"
+        <TextPrimary text={"Airminum aqua"} style={{ textAlign: 'flex-start', marginBottom: 5 }} numberOfLines={1} ellipsizeMode="tail" />
+        <TextSmall text="Cuma AQUA Yang Berasal Dari 19 Gunung Terpilih, 100% Murni Air Mineral Pegunungan"
           numberOfLines={3} ellipsizeMode="tail"
         />
       </View>
     </Pressable>)
   }
   return (
-    <ViewBlack>
+    <ViewBlack accessible={true} accessibilityHint={"anda berada di halaman beranda"} >
       <FlatList
+        accessibilityLabel='silahkan pilih list produk yang ingin anda uji'
+        accessibilityRole='list'
         showsVerticalScrollIndicator={false}
         data={[1, 2, 3]}
         renderItem={({ index }) => _renderProductItem(index)}
-        ListHeaderComponent={<TextSmall style={{ marginBottom: 30 }} text={"Anda ingin menguji apa?"} />}
+        ListHeaderComponent={<TextSmall style={{ marginBottom: 30 }} text={"Anda ingin menguji apa?"} accessibilityRole="text" />}
         ListFooterComponent={
           <>
             <View style={{ paddingHorizontal: 26, backgroundColor: '#1B478D', height: 131, justifyContent: 'center' }}>

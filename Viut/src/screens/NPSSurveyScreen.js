@@ -6,9 +6,9 @@ import Button from '../components/Button'
 
 const NPSSurveyScreen = () => {
   return (
-    <ViewBlack>
-      <SurveyDone />
-      <Button text={"SELESAI"} style={{ marginTop: 60, backgroundColor: '#F4B739' }} textStyle={{ color: '#000' }} />
+    <ViewBlack accessible>
+      <SurveyDone labelTop={"Anda telah menyelesaikan Survey NPS! Berikut hasil penilaiannya"} labelBottom={"Anda Telah menyelesaikan semua survey tekan selesai untuk kembali ke beranda"} />
+      <Button text={"SELESAI"} style={{ marginTop: 60, backgroundColor: '#F4B739' }} textStyle={{ color: '#000' }} accessibilityRole={'button'} accessibilityHint={"Klik untuk menyelesaikan survey"} />
     </ViewBlack>
   )
 }

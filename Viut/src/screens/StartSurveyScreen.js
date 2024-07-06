@@ -11,13 +11,13 @@ import ButtomView from '../components/ButtomView'
 const StartSurveyScreen = ({ navigation }) => {
   return (
     <ViewBlack>
-      <View style={{ justifyContent: 'space-around', flex: 1 }}>
+      <View style={{ justifyContent: 'space-around', flex: 1 }} accessible>
         <TextSmall text="Anda sudah memilih produk,
 Terdapat skala nilai 1 sampai 5
 Nilai 1 tidak setuju dan nilai 5 setuju Tekan tombol mulai untuk mengisi penilaian"
           style={{ textAlign: 'center' }}
         />
-        <Button text="Login" style={{ width: 239, alignSelf: 'center', marginVertical: 40 }} onPress={() => { }} />
+        <Button text="Mulai" style={{ width: 239, alignSelf: 'center', marginVertical: 40 }} onPress={() => navigation.navigate("ViatQuestionScreen")} />
         <TextSmall text="Anda bisa kembali untuk memilih ulang produk "
           style={{ textAlign: 'center' }}
         />

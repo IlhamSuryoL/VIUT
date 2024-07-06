@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const BackButton = ({ onPress }) => {
   return (
-    <Pressable style={[Styles.bottomButtonStyle, { backgroundColor: '#D63231' }]} onPress={onPress}>
+    <Pressable style={[Styles.bottomButtonStyle, { backgroundColor: '#D63231' }]} onPress={onPress} accessibilityLabel='tombol kembali' accessibilityRole='button' accessibilityHint='klik untuk ke halaman sebelumnya'>
       <View style={{ transform: [{ rotateX: '180deg' }, { rotateZ: '180deg' }], width: 80, height: 80 }}>
         <MaterialCommunityIcons name="share-outline" size={80} color="#fff" />
       </View>

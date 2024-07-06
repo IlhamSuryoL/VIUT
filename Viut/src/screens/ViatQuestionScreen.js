@@ -8,8 +8,8 @@ import ChoosePoint from '../components/ChoosePoint'
 const ViatQuestionScreen = ({ navigation }) => {
   const [selectedPoint, setSelectedPoint] = useState(null)
   return (
-    <ViewBlack>
-      <View style={{ flex: 1, justifyContent: "center" }}>
+    <ViewBlack accessible>
+      <View style={{ flex: 1, justifyContent: "center" }} >
         <TextSmall text="Pertanyaan bla bla bla bla bla"
           style={{ textAlign: 'center', marginBottom: 50 }}
         />
