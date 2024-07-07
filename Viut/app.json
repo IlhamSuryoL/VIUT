@@ -18,10 +18,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#111111"
-      }
+      },
+      "package": "com.viut"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a76b9609-e8ff-4a04-a9a3-f721fb35a37a"
+      }
     }
   }
 }
