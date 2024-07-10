@@ -1,9 +1,9 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 
-const ProductImage = () => {
+const ProductImage = ({ uri }) => {
   return (
-    <Image source={{ uri: "https://picsum.photos/seed/picsum/200/300" }} style={{ width: 90, height: 90 }} />
+    <Image source={{ uri: uri }} style={{ width: 90, height: 90 }} />
   )
 }
 
