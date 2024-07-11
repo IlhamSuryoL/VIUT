@@ -6,15 +6,18 @@ import CardGrey from '../components/CardGrey'
 import formatTextStyle from '../styles/formatTextStyle'
 import ProductImage from '../components/ProductImage'
 import TextSmall from '../components/TextSmall'
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { FIRE_DB } from '../../firebaseConfig'
 import moment from 'moment'
+import FullLoading from '../components/FullLoading'
 
 const ListProductScreen = ({ navigation }) => {
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
   const getProducts = async () => {
+    setLoading(true)
     const tampData = []
-    const querySnapshot = await getDocs(collection(FIRE_DB, "products"));
+    const querySnapshot = await getDocs(query(collection(FIRE_DB, "products"), orderBy("create_at", "desc")));
     querySnapshot.forEach((doc) => {
       tampData.push({
         id: doc.id,
@@ -22,6 +25,7 @@ const ListProductScreen = ({ navigation }) => {
       })
     });
     setData(tampData)
+    setLoading(false)
   }
   useEffect(() => {
     getProducts()
@@ -55,7 +59,9 @@ const ListProductScreen = ({ navigation }) => {
         data={data}
         renderItem={({ item }) => _renderProductItem(item)}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={<Text style={{ textAlign: 'center' }}>Data Masih kosong</Text>}
       />
+      {loading && <FullLoading />}
     </WrapperView>
   )
 }
