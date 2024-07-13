@@ -7,8 +7,10 @@ product
   product_description: "",
   product_image_url:"",
   create_at:"",
+  participant_ids:[]
   users: [
      {
+      id:"",
       name: "",
       email: "",
       nps_score: 0,

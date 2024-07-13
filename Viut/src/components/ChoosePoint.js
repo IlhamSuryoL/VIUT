@@ -20,7 +20,7 @@ const ChoosePoint = ({ hideStartText, hideEndText, startIndex = 1, selectedPoint
         {Array.from({ length: 5 }).map((item, index) => {
           const point = index + startIndex
           return <Pressable key={point} style={{ marginBottom: 6, marginHorizontal: 5 }} onPress={() => setSelectedPoint(point)}>
-            <RadioButton size={55} active={selectedPoint == point} onPress={() => setSelectedPoint(point)} accessibilityLabel={"Skor yang anda berikan adalah " + point} accessibilityHint={"klik ditombol kanan bawah untuk proses selanjutnya"} />
+            <RadioButton size={45} active={selectedPoint == point} onPress={() => setSelectedPoint(point)} accessibilityLabel={"Skor yang anda berikan adalah " + point} accessibilityHint={"klik ditombol kanan bawah untuk proses selanjutnya"} />
             <TextPrimary text={point} style={{ marginTop: 8 }} accessibilityLabel={"Skor yang anda berikan adalah " + point} accessibilityHint={"klik ditombol kanan bawah untuk proses selanjutnya"} />
           </Pressable>
         }

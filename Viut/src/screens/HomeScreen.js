@@ -1,26 +1,75 @@
 import { View, Text, FlatList, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ViewBlack from '../components/ViewBlack'
 import TextSmall from '../components/TextSmall'
 import colors from '../styles/colors'
 import TextPrimary from '../components/TextPrimary'
 import RadioButton from '../components/RadioButton'
 import NextButton from '../components/NextButton'
+import FullLoading from '../components/FullLoading'
+import { getDocs, query, collection, orderBy, doc, getDoc } from 'firebase/firestore'
+import { FIRE_DB } from '../../firebaseConfig'
+import { useSetAtom } from 'jotai'
+import { questionAtom } from '../store'
 const copyBeforeSelect = "Terdapat beberapa pilihan produk, silahkan pilih produk yang ingin anda uji"
 const copyAfterSelect = "Tekan tombol selanjutnya untuk memulai penilaian"
+
 const HomeScreen = ({ navigation }) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(null)
-  const _renderProductItem = (index) => {
+  const [selectedId, setSelectedId] = useState(null)
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const setQuestion = useSetAtom(questionAtom)
+
+  useEffect(() => {
+    getProducts()
+    getQuestion()
+  }, [])
+
+  const getQuestion = async () => {
+    const tampData = []
+    const docRef = doc(FIRE_DB, "viut_app", "viat_questions");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      docSnap.data().data.forEach((question) => {
+        tampData.push({
+          question: question,
+          score: 0
+        })
+      })
+      setQuestion(tampData)
+    } else {
+      console.log("No such document!");
+    }
+  }
+
+  const getProducts = async () => {
+    setLoading(true)
+    const tampData = []
+    const querySnapshot = await getDocs(query(collection(FIRE_DB, "products"), orderBy("create_at", "desc")));
+    querySnapshot.forEach((doc) => {
+      tampData.push({
+        id: doc.id,
+        ...doc.data()
+      })
+    });
+    setData(tampData)
+    setLoading(false)
+  }
+  const _renderProductItem = (item, index) => {
     return (<Pressable
-      onPress={() => setSelectedProductIndex(index)}
+      onPress={() => {
+        setSelectedId(item.id)
+        setSelectedProductIndex(index)
+      }}
       style={{
         paddingHorizontal: 19, paddingVertical: 8, borderRadius: 10,
         backgroundColor: colors.blue, marginBottom: 30, flexDirection: 'row', alignItems: 'center', flex: 1
       }}>
       <RadioButton active={index === selectedProductIndex} />
       <View style={{ flex: 1, marginLeft: 19 }}>
-        <TextPrimary text={"Airminum aqua"} style={{ textAlign: 'flex-start', marginBottom: 5 }} numberOfLines={1} ellipsizeMode="tail" />
-        <TextSmall text="Cuma AQUA Yang Berasal Dari 19 Gunung Terpilih, 100% Murni Air Mineral Pegunungan"
+        <TextPrimary text={item.product_name} style={{ textAlign: 'flex-start', marginBottom: 5 }} numberOfLines={1} ellipsizeMode="tail" />
+        <TextSmall text={item.product_description}
           numberOfLines={3} ellipsizeMode="tail"
         />
       </View>
@@ -32,8 +81,8 @@ const HomeScreen = ({ navigation }) => {
         accessibilityLabel='silahkan pilih list produk yang ingin anda uji'
         accessibilityRole='list'
         showsVerticalScrollIndicator={false}
-        data={[1, 2, 3]}
-        renderItem={({ index }) => _renderProductItem(index)}
+        data={data}
+        renderItem={({ index, item }) => _renderProductItem(item, index)}
         ListHeaderComponent={<TextSmall style={{ marginBottom: 30 }} text={"Anda ingin menguji apa?"} accessibilityRole="text" />}
         ListFooterComponent={
           <>
@@ -42,13 +91,15 @@ const HomeScreen = ({ navigation }) => {
             </View>
             <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 26, height: 80 }}>
               {selectedProductIndex !== null &&
-                <NextButton onPress={() => navigation.navigate("StartSurveyScreen")} />
+                <NextButton onPress={() => navigation.navigate("StartSurveyScreen", {
+                  productId: selectedId
+                })} />
               }
             </View>
           </>
         }
       />
-
+      {loading && <FullLoading />}
     </ViewBlack>
   )
 }

@@ -1,12 +1,13 @@
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import React, { useState } from 'react'
 import ViewBlack from '../components/ViewBlack'
 import TextSmall from '../components/TextSmall'
 import ButtomView from '../components/ButtomView'
 import ChoosePoint from '../components/ChoosePoint'
 
-const NPSQuestionScreen = ({ navigation }) => {
+const NPSQuestionScreen = ({ navigation, route }) => {
   const [selectedPoint, setSelectedPoint] = useState(null)
+  const { productId } = route.params
   return (
     <ViewBlack accessible>
       <View style={{ flex: 1, justifyContent: "center" }}>
@@ -16,7 +17,16 @@ const NPSQuestionScreen = ({ navigation }) => {
         <ChoosePoint hideEndText selectedPoint={selectedPoint} setSelectedPoint={(index) => setSelectedPoint(index)} />
         <ChoosePoint startIndex={6} hideStartText selectedPoint={selectedPoint} setSelectedPoint={(index) => setSelectedPoint(index)} />
       </View>
-      <ButtomView navigation={navigation} nextScreen={"NPSSurveyScreen"} />
+      <ButtomView navigation={navigation} onPressNextButton={() => {
+        if (!selectedPoint) {
+          Alert.alert("", "Sebelum melanjutkan silahkan berikan penilaian anda")
+          return;
+        }
+        navigation.navigate("NPSSurveyScreen", {
+          productId,
+          score: selectedPoint
+        })
+      }} />
     </ViewBlack>
   )
 }
