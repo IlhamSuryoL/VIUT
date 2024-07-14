@@ -37,7 +37,7 @@ users :
     viat_score: 0,
     products:[
 {
-  id: xx
+  uid: xx
   product_name: "",
   product_description: "",
   product_image_url:"",
