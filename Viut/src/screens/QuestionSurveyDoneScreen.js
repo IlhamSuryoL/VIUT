@@ -26,7 +26,8 @@ const QuestionSurveyDoneScreen = ({ navigation, route }) => {
       />
       <Button text={"Survey NPS"} style={{ backgroundColor: '#25AE74', marginTop: 60 }}
         onPress={() => navigation.navigate("NPSQuestionScreen", {
-          productId
+          productId,
+          viatScore: totalScore
         })}
         accessibilityRole={"button"} accessibilityHint={"klik untuk melanjutkan survey nps"} />
     </ViewBlack>

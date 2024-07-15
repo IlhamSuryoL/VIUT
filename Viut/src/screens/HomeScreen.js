@@ -9,8 +9,8 @@ import NextButton from '../components/NextButton'
 import FullLoading from '../components/FullLoading'
 import { getDocs, query, collection, orderBy, doc, getDoc } from 'firebase/firestore'
 import { FIRE_DB } from '../../firebaseConfig'
-import { useSetAtom } from 'jotai'
-import { questionAtom } from '../store'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { questionAtom, userAtom } from '../store'
 const copyBeforeSelect = "Terdapat beberapa pilihan produk, silahkan pilih produk yang ingin anda uji"
 const copyAfterSelect = "Tekan tombol selanjutnya untuk memulai penilaian"
 
@@ -20,6 +20,7 @@ const HomeScreen = ({ navigation }) => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const setQuestion = useSetAtom(questionAtom)
+  const user = useAtomValue(userAtom)
 
   useEffect(() => {
     getProducts()
@@ -48,9 +49,11 @@ const HomeScreen = ({ navigation }) => {
     const tampData = []
     const querySnapshot = await getDocs(query(collection(FIRE_DB, "products"), orderBy("create_at", "desc")));
     querySnapshot.forEach((doc) => {
+      const product = doc.data()
+      if (product?.participant_ids && product?.participant_ids.includes(user.uid)) return;
       tampData.push({
         id: doc.id,
-        ...doc.data()
+        ...product
       })
     });
     setData(tampData)

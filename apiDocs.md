@@ -1,8 +1,8 @@
 # Product 
 ```javascript
-product 
+products 
 [{
-  id: xx
+  uid: xx
   product_name: "",
   product_description: "",
   product_image_url:"",
@@ -10,7 +10,7 @@ product
   participant_ids:[]
   users: [
      {
-      id:"",
+      uid:"",
       name: "",
       email: "",
       nps_score: 0,
@@ -29,27 +29,11 @@ product
 # User
 ```javascript
 users :
-[
-  {
+{
     name: "",
     email: "",
     uid: xx
-    products:[
-{
-  uid: xx
-  product_name: "",
-  product_description: "",
-  product_image_url:"",
-  viatQuestions:[
-        {
-          text: "",
-          score:""
-        }
-      ]
-     }
-    ]
-  }
-]
+}
 ```
 # Question
 ```javascript

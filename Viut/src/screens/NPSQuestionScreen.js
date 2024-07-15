@@ -7,7 +7,7 @@ import ChoosePoint from '../components/ChoosePoint'
 
 const NPSQuestionScreen = ({ navigation, route }) => {
   const [selectedPoint, setSelectedPoint] = useState(null)
-  const { productId } = route.params
+  const { productId, viatScore } = route.params
   return (
     <ViewBlack accessible>
       <View style={{ flex: 1, justifyContent: "center" }}>
@@ -24,7 +24,8 @@ const NPSQuestionScreen = ({ navigation, route }) => {
         }
         navigation.navigate("NPSSurveyScreen", {
           productId,
-          score: selectedPoint
+          npsScore: selectedPoint,
+          viatScore
         })
       }} />
     </ViewBlack>
