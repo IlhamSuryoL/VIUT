@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -12,6 +12,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import colors from './src/styles/colors';
 import { Provider } from 'jotai';
+import OuthLoadngScreen from './src/screens/AuthLoadngScreen';
+import AuthLoadngScreen from './src/screens/AuthLoadngScreen';
+import { Entypo } from '@expo/vector-icons';
+import { signOut } from 'firebase/auth';
+import { AUTH } from './firebaseConfig';
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
@@ -19,7 +24,7 @@ export default function App() {
       <StatusBar style="auto" />
       <Provider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='Home' screenOptions={{
+          <Stack.Navigator initialRouteName='AuthLoadngScreen' screenOptions={{
             headerStyle: {
               backgroundColor: colors.blue,
             },
@@ -29,6 +34,11 @@ export default function App() {
               fontSize: 24,
             },
           }}>
+            <Stack.Screen
+              name='AuthLoadngScreen'
+              component={AuthLoadngScreen}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name='LoginScreen'
               component={LoginScreen}
@@ -42,11 +52,39 @@ export default function App() {
             <Stack.Screen
               name='HomeScreen'
               component={HomeScreen}
-              options={{
+              options={({ navigation }) => ({
                 title: "Beranda",
                 headerBackVisible: false,
                 headerTitleAlign: 'center',
-              }}
+                headerRight: () => (
+                  <Pressable onPress={() => {
+                    Alert.alert(
+                      "",
+                      "Yakin anda mau logout",
+                      [
+                        {
+                          text: "Cancel",
+                          style: "cancel"
+                        },
+                        {
+                          text: "Yakin", onPress: () => {
+                            signOut(AUTH).then(() => {
+                              navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'LoginScreen' }],
+                              });
+                            }).catch(() => {
+                              Alert.alert("", "Logout gagal")
+                            });
+                          }
+                        }
+                      ]
+                    );
+                  }}>
+                    <Entypo name="log-out" size={24} color="white" />
+                  </Pressable>
+                )
+              })}
             />
             <Stack.Screen
               name="StartSurveyScreen"
