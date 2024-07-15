@@ -33,8 +33,7 @@ users :
   {
     name: "",
     email: "",
-    nps_score: 0,
-    viat_score: 0,
+    uid: xx
     products:[
 {
   uid: xx
