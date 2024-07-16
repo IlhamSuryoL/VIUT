@@ -8,7 +8,8 @@ import formatTextStyle from '../styles/formatTextStyle'
 import colors from '../styles/colors'
 import ProductImage from '../components/ProductImage'
 
-const ProductDetailScreen = () => {
+const ProductDetailScreen = ({ route }) => {
+  const { product } = route.params
   const _renderParticipantItem = (participant) => {
     return (
       <CardGrey>
@@ -44,11 +45,11 @@ const ProductDetailScreen = () => {
           npsScore: 23
         })}
         ListHeaderComponent={<View style={{ marginBottom: 20 }}>
-          <TextPrimary text={"Naviku"} style={{ color: '#000' }} />
+          <TextPrimary text={product.product_name} style={{ color: '#000' }} />
           <View style={{ flexDirection: 'row', flex: 1, marginTop: 19, marginBottom: 26 }}>
-            <ProductImage />
+            <ProductImage uri={product.product_image_url} />
             <View style={{ padding: 10, borderWidth: 1, borderColor: "#000", borderRadius: 10, flex: 1, marginLeft: 16 }}>
-              <TextSmall text={"Aplikasi untuk membantu navigasi penyandang tunanetra Aplikasi untuk membantu navigasi penyandang tunanetra Aplikasi untuk membantu navigasi penyandang tunanetra"} />
+              <TextSmall text={product.product_description} />
             </View>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

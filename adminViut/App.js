@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import ListProductScreen from './src/screens/ListProductScreen';
@@ -10,6 +10,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import colors from './src/styles/colors';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { signOut } from 'firebase/auth';
+import { AUTH } from './firebaseConfig';
+import { Entypo } from '@expo/vector-icons';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -36,11 +39,39 @@ export default function App() {
             <Stack.Screen
               name='HomeScreen'
               component={HomeScreen}
-              options={{
+              options={({ navigation }) => ({
                 title: "Home",
                 headerBackVisible: false,
                 headerTitleAlign: 'center',
-              }}
+                headerRight: () => (
+                  <Pressable onPress={() => {
+                    Alert.alert(
+                      "",
+                      "Yakin anda mau logout",
+                      [
+                        {
+                          text: "Cancel",
+                          style: "cancel"
+                        },
+                        {
+                          text: "Yakin", onPress: () => {
+                            signOut(AUTH).then(() => {
+                              navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'LoginScreen' }],
+                              });
+                            }).catch(() => {
+                              Alert.alert("", "Logout gagal")
+                            });
+                          }
+                        }
+                      ]
+                    );
+                  }}>
+                    <Entypo name="log-out" size={24} color="white" />
+                  </Pressable>
+                )
+              })}
             />
             <Stack.Screen
               name='AddProduct'
