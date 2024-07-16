@@ -9,6 +9,7 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { AUTH } from '../../firebaseConfig'
+import FullLoading from '../components/FullLoading'
 
 const COLOR_ICON = "#B9B8B8"
 const LoginScreen = ({ navigation }) => {
@@ -65,6 +66,7 @@ const LoginScreen = ({ navigation }) => {
         accessibilityHint={"Klik untuk pindah ke halaman register"}
         accessibilityRole={"button"}
       />
+      {loading && <FullLoading />}
     </View>
   )
 }
