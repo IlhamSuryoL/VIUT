@@ -40,6 +40,7 @@ const NPSSurveyScreen = ({ route, navigation }) => {
 
       const data = {
         participant_ids: participantIds,
+        update_at: Date.now(),
         users: users
       }
       await updateDoc(productRef, data);
