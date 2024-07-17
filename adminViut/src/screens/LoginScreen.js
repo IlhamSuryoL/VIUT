@@ -24,7 +24,9 @@ const LoginScreen = ({ navigation }) => {
   }, [])
 
   const getCurrentUser = () => {
+    setLoading(true)
     onAuthStateChanged(AUTH, async (user) => {
+      setLoading(false)
       if (user) {
         const uid = user.uid;
         const docRef = doc(FIRE_DB, "users", uid);
@@ -44,7 +46,6 @@ const LoginScreen = ({ navigation }) => {
             }, 2000);
             Alert.alert("", "Kamu bukan admin")
           }
-          console.log('data ', data);
         }
       }
     });
