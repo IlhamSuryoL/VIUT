@@ -48,6 +48,7 @@ const AddProduct = () => {
         product_description: data.description,
         product_image_url: imageUrl,
         create_at: Date.now(),
+        update_at: Date.now(),
       });
       Alert.alert("Sukses !!", "Produk berhasil disimpan")
       setData({
