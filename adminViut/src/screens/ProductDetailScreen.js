@@ -13,11 +13,34 @@ const ProductDetailScreen = ({ route }) => {
   const _renderParticipantItem = (participant) => {
     return (
       <CardGrey>
-        <TextPrimary text={participant.participantName} style={{ color: '#000', textAlign: 'start' }} />
-        <TextSmall text={`VIAT-Q : ${participant.questionScore}`} />
-        <TextSmall text={`NPS : ${participant.npsScore}`} />
+        <TextPrimary text={participant.name} style={{ color: '#000', textAlign: 'start' }} />
+        <TextSmall text={`VIAT-Q : ${participant.viat_score}`} />
+        <TextSmall text={`NPS : ${participant.nps_score}`} />
       </CardGrey>
     )
+  }
+  const averageVIAT = (users) => {
+    if (!users) return "0"
+    const totalUser = users.length
+    let totalVIAT = 0
+    users.map(user => {
+      totalVIAT += user.viat_score
+    });
+    const total = totalVIAT / totalUser
+    return total.toFixed(2)
+  }
+  const averageNPS = (users) => {
+    if (!users) return "0"
+    const totalUser = users.length
+    let promoter = 0
+    let detractor = 0
+    users.map(user => {
+      if (user.nps_score > 8) promoter++
+      if (user.nps_score < 7) detractor++
+    });
+    let persenPromotor = (promoter / totalUser) * 100
+    let persenDetector = (detractor / totalUser) * 100
+    return persenPromotor - persenDetector
   }
   const _renderTotalScore = (label, score) => {
     return (
@@ -38,12 +61,9 @@ const ProductDetailScreen = ({ route }) => {
   return (
     <WrapperView>
       <FlatList
-        data={[1, 2, 3]}
-        renderItem={() => _renderParticipantItem({
-          participantName: "Test",
-          questionScore: 2,
-          npsScore: 23
-        })}
+        keyExtractor={(i, index) => index.toString()}
+        data={product?.users || []}
+        renderItem={({ item }) => _renderParticipantItem(item)}
         ListHeaderComponent={<View style={{ marginBottom: 20 }}>
           <TextPrimary text={product.product_name} style={{ color: '#000' }} />
           <View style={{ flexDirection: 'row', flex: 1, marginTop: 19, marginBottom: 26 }}>
@@ -53,9 +73,9 @@ const ProductDetailScreen = ({ route }) => {
             </View>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            {_renderTotalScore("Rata-rata VIAT-Q", "4.5")}
+            {_renderTotalScore("Rata-rata VIAT-Q", averageVIAT(product?.users))}
             <View style={{ width: 15 }} />
-            {_renderTotalScore("Rata-rata NPS", "80")}
+            {_renderTotalScore("Rata-rata NPS", averageNPS(product?.users) + "%")}
           </View>
         </View>}
         ItemSeparatorComponent={<View style={{ height: 20 }} />}

@@ -1,4 +1,4 @@
-import { View, Text, Image, FlatList, Pressable } from 'react-native'
+import { View, Text, Image, FlatList, Pressable, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import WrapperView from '../components/WrapperView'
 import TextPrimary from '../components/TextPrimary'
@@ -6,14 +6,17 @@ import CardGrey from '../components/CardGrey'
 import formatTextStyle from '../styles/formatTextStyle'
 import ProductImage from '../components/ProductImage'
 import TextSmall from '../components/TextSmall'
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, orderBy, query } from "firebase/firestore";
 import { FIRE_DB } from '../../firebaseConfig'
 import moment from 'moment'
 import FullLoading from '../components/FullLoading'
+import { useActionSheet } from '@expo/react-native-action-sheet'
 
 const ListProductScreen = ({ navigation }) => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const { showActionSheetWithOptions } = useActionSheet();
+
   const getProducts = async () => {
     setLoading(true)
     const tampData = []
@@ -34,9 +37,42 @@ const ListProductScreen = ({ navigation }) => {
   const _renderProductItem = (product) => {
     const participant = product?.users?.length || 0
     return (
-      <Pressable onPress={() => navigation.navigate("ProductDetailScreen", {
-        product: product
-      })}>
+      <Pressable onPress={() => {
+        const options = ["Lihat Detail Produk", "Menghapus Produk", "Cencel"]
+        showActionSheetWithOptions({
+          options,
+          cancelButtonIndex: 2,
+          destructiveButtonIndex: [1, 2]
+        }, (selectedIndex) => {
+          switch (selectedIndex) {
+            case 0:
+              navigation.navigate("ProductDetailScreen", {
+                product: product
+              })
+              break;
+            case 1:
+              Alert.alert(
+                "",
+                "Anda yakin menghapus produk ini?",
+                [
+                  {
+                    text: "Cancel",
+                    style: "cancel"
+                  },
+                  {
+                    text: "Yakin", onPress: async () => {
+                      await deleteDoc(doc(FIRE_DB, "products", product.id));
+                      const tampData = data.filter((item) => item.id !== product.id)
+                      setData(tampData)
+                    }
+                  }
+                ]
+              );
+              break;
+          }
+        });
+
+      }}>
         <CardGrey>
           <View style={{ flexDirection: 'row' }}>
             <ProductImage uri={product.product_image_url} />
