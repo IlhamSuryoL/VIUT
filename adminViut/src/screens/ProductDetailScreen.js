@@ -75,7 +75,7 @@ const ProductDetailScreen = ({ route }) => {
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             {_renderTotalScore("Rata-rata VIAT-Q", averageVIAT(product?.users))}
             <View style={{ width: 15 }} />
-            {_renderTotalScore("Rata-rata NPS", averageNPS(product?.users) + "%")}
+            {_renderTotalScore("Rata-rata NPS", averageNPS(product?.users))}
           </View>
         </View>}
         ItemSeparatorComponent={<View style={{ height: 20 }} />}
