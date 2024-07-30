@@ -1,7 +1,7 @@
 import { View, Text, TextInput } from 'react-native'
 import React from 'react'
 
-const TextInputWithLabel = ({ label, iconLeft, placeholder, containerStyle, labelStyle, containerInputStyle, multiline, inputStyle, numberOfLines, value, onChangeText }) => {
+const TextInputWithLabel = ({ label, iconLeft, placeholder, containerStyle, labelStyle, containerInputStyle, multiline, inputStyle, numberOfLines, value, onChangeText, iconRight, secureTextEntry }) => {
   return (
     <View style={containerStyle}>
       <Text style={[{ color: '#fff', marginBottom: 5 }, labelStyle]} nativeID={label}>{label}</Text>
@@ -13,7 +13,9 @@ const TextInputWithLabel = ({ label, iconLeft, placeholder, containerStyle, labe
           accessibilityLabelledBy={label}
           value={value}
           onChangeText={onChangeText}
+          secureTextEntry={secureTextEntry}
         />
+        {iconRight}
       </View>
     </View>
   )

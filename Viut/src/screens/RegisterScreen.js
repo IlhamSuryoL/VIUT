@@ -1,11 +1,11 @@
-import { View, Text, Alert } from 'react-native'
+import { View, Text, Alert, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import colors from '../styles/colors'
 import Button from '../components/Button'
 import ButtonAuthLink from '../components/ButtonAuthLink'
 import formatTextStyle from '../styles/formatTextStyle'
 import TextInput from '../components/TextInput'
-import { Entypo, FontAwesome6 } from '@expo/vector-icons';
+import { Entypo, FontAwesome6, Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { AUTH, FIRE_DB } from '../../firebaseConfig'
@@ -17,6 +17,7 @@ import { userAtom } from '../store'
 const COLOR_ICON = "#B9B8B8"
 const RegisterScreen = ({ navigation }) => {
   const setUser = useSetAtom(userAtom)
+  const [showPassoword, setShowPassoword] = useState(true);
 
   const [data, setData] = useState({
     name: "",
@@ -103,6 +104,17 @@ const RegisterScreen = ({ navigation }) => {
             ['password']: text,
           }));
         }}
+        secureTextEntry={showPassoword}
+        iconRight={
+          <Pressable onPress={() => setShowPassoword(!showPassoword)}>
+            <Ionicons
+              name={showPassoword ? "eye-off" : "eye"}
+              size={24}
+              color={COLOR_ICON}
+              accessibilityLabel="icon password"
+            />
+          </Pressable>
+        }
       />
       <Button text="Daftar" style={{ width: 239, alignSelf: 'center', marginVertical: 40 }} onPress={() => onRegister()}
         accessibilityLabel={"Register"}
